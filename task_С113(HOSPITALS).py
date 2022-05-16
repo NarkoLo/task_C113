@@ -196,17 +196,78 @@ class Hospital:
                     self.doctors[index].removePatient()
             if input() == 7:
                 break
+ def edit_nurses(self,index):
+        while True:
+            print("Select change: ")
+            print("\t" + "1. Nurse's name")
+            print("\t" + "2. Nurse's surname")
+            print("\t" + "3. Nurse's age")
+            print("\t" + "4. Nurse's licence_id")
+            print("\t" + "5. Nurse's ward")
+            print("\t" + "6. Nurse's schedule")
+            print("\t" + "7. Exit")
+            if input() == 1:
+                self.doctors[index].name = input("Enter new Nurse's name")
+            if input() == 2:
+                self.doctors[index].surname = input("Enter new Nurse's surname")
+            if input() == 3:
+                self.doctors[index].age = int(input("Enter new Nurse's age"))
+            # if input() == 4:
+            #    // self.nurses[index]. = int(input("Enter new Nurse's licence_id"))
+            # if input() == 5:
+            #     self.doctors[index].occupation = int(input("Enter new Nurse's ward"))
+            # if input() == 6:
+            #     print("Select change: ")
+            #     print("\t" + "1. Remove a schedule")
+            #     print("\t" + "2. Add a schedule")
+            #     if input() == 1:
+            #         self.nurses[index].addNewPatient()
+            #     if input() == 2:
+            #         self.nurses[index].removePatient()
+            if input() == 7:
+                break
 
     def remove_doctor(self, index):
         self.doctors.remove(index)
 
+
+    def remove_nurses(self,index):
+        self.nurses.remove(index)
+
     def __add__(self, others):
-        self.doctors.append(others)
+        flag = False
+        if isinstance(others, Doctor):
+            if self.doctors[0] == None:
+                self.doctors[1] = others
+                flag = True
+            else:
+                self.doctors.append(others)
+                flag = True
+        if isinstance(others, Nurse):
+            self.nurses.append(others)
+            flag = True
+        if flag == False:
+            print("Error object")
 
     def __sub__(self, other):
         self.doctors.remove(other)
 
+    def write_in_file(self):
+        with open('C:\\Users\\narko\\Desktop\\Hospital info.txt', 'w') as new_file:
+            new_file.write(print_info + '\n')
+            for var1 in self.doctors:
+                new_file.write(var1.printAll() + "\n")
+            for var2 in self.nurses:
+                new_file.write(var2.schedule.items() + "\n")
 
+#тестирование функионала
+def test():
+    x = Hospital('Glory Dungeon', 'Van street 69')
+    x + Doctor('2323211231412', 'Ass Doctor')
+    x.doctors[0].addNewPatient()
+    x.print_info()
+
+test()
 #ROADMAP:
 #СОЗДАТЬ МЕТОД ПО ДОБАВЛЕНИЮ ОБЪЕКТА И ДОБАВЛЕНИЮ ЕГО АТРИБУТОВ В ЛИСТ КЛАССA HOSPITAL
 #РАСПРЕДЕЛИТЬ КЛАССЫ ПО ОТДЛЕЛЬНЫМ ФАЙЛАМ
