@@ -137,17 +137,75 @@ class Nurse(Person):
 
 class Hospital:
 
-    #def __init__(self, hospital_name, address, doctors, nurses):
-    #    super().__init__()
-    #    self.hospital_name = hospital_name
-    #    self.address = address
-    #    self.employees = doctors.
+   hospital_name = ''
+    address = ''
+    doctors = []
+    nurses = []
 
+    def __init__(self, hospital_name, address, doctors, nurses):
 
-def createObject():
-    x1 = input()
-    x2 = input()
-    x = Hospital(x1, x2)
+        self.hospital_name = hospital_name
+        self.address = address
+        self.doctors = doctors
+        self.nurses = nurses
+
+    def print_info(self):
+        print("Hospital title: " + self.hospital_name + "\n" + "Hospital address: " + self.address + "\n")
+        print("Staff: ")
+        print("Doctors: ")
+        for var1 in self.doctors:
+            print(var1.printInfo())
+        print("Nurses: ")
+        for var2 in self.nurses:
+            print(var2.printInfo())
+
+    def len(self):
+        return len(self.doctors)
+
+    def get_doctor(self, index):
+        return self.doctors[index].printInfo()
+#добавить нужно вмонтировать меню выбора, что именно нужно изменить
+
+    def edit_doctor(self, index):
+        while True:
+            print("Select change: ")
+            print("\t" + "1. Doctor's name")
+            print("\t" + "2. Doctor's surname")
+            print("\t" + "3. Doctor's age")
+            print("\t" + "4. Doctor's licence_id")
+            print("\t" + "5. Doctor's occupation")
+            print("\t" + "6. Patients")
+            print("\t" + "7. Exit")
+            if input() == 1:
+                self.doctors[index].name = input("Enter new Doctor's name")
+            if input() == 2:
+                self.doctors[index].surname = input("Enter new Doctor's surname")
+            if input() == 3:
+                self.doctors[index].age = int(input("Enter new Doctor's age"))
+            if input() == 4:
+                self.doctors[index].licence_id = int(input("Enter new Doctor's licence_id"))
+            if input() == 5:
+                self.doctors[index].occupation = int(input("Enter new Doctor's occupation"))
+            if input() == 6:
+                print("Select change: ")
+                print("\t" + "1. Remove a patient")
+                print("\t" + "2. Add a patient")
+                if input() == 1:
+                    self.doctors[index].addNewPatient()
+                if input() == 2:
+                    self.doctors[index].removePatient()
+            if input() == 7:
+                break
+
+    def remove_doctor(self, index):
+        self.doctors.remove(index)
+
+    def __add__(self, others):
+        self.doctors.append(others)
+
+    def __sub__(self, other):
+        self.doctors.remove(other)
+
 
 #ROADMAP:
 #СОЗДАТЬ МЕТОД ПО ДОБАВЛЕНИЮ ОБЪЕКТА И ДОБАВЛЕНИЮ ЕГО АТРИБУТОВ В ЛИСТ КЛАССA HOSPITAL
